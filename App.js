@@ -1,21 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Deck from './src/Deck';
+import Home from './src/Home';
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Hme"
+          component={Home}
+          options={{ title: 'Choose Your Deck' }}
+        />
+        <Stack.Screen
+          name="Deck"
+          component={Deck}
+          options={({ route }) => ({ title: route.params.type })}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
