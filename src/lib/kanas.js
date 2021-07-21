@@ -72,7 +72,7 @@ const kanas = [
   { romanji: 'n', hiragana: 'ん', katakana: 'ン' },
 ];
 
-const shuffle = (array) => {
+export const shuffle = (array) => {
   let currentIndex = array.length; let
     randomIndex;
 
@@ -90,4 +90,4 @@ const shuffle = (array) => {
   return array;
 };
 
-export default shuffle(kanas);
+export default kanas;

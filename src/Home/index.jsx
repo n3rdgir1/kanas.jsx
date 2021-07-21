@@ -1,16 +1,21 @@
 import * as React from 'react';
-import { Button, View } from 'react-native';
+import { Text, View } from 'react-native';
+import styles from '../styles';
 
 const Home = ({ navigation }) => (
-  <View>
-    <Button
-      title="Hiragana"
+  <View style={styles.container}>
+    <Text
+      style={styles.card}
       onPress={() => navigation.navigate('Deck', { type: 'Hiragana' })}
-    />
-    <Button
-      title="Katakana"
+    >
+      <span>Hiragana</span>
+    </Text>
+    <Text
+      style={styles.card}
       onPress={() => navigation.navigate('Deck', { type: 'Katakana' })}
-    />
+    >
+      <span>Katakana</span>
+    </Text>
   </View>
 );
 

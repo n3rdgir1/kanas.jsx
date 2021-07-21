@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import {
   Button, Text, View,
 } from 'react-native';
+import styles from '../styles';
 
 const Card = ({
   faces, next, kana,
@@ -14,12 +15,13 @@ const Card = ({
   }, [kana]);
 
   return (
-    <View>
-      <Text>{kana[faces[index]]}</Text>
-      <Button
-        title="Flip"
+    <View style={styles.container}>
+      <Text
+        style={styles.card}
         onPress={() => setIndex((index + 1) % 2)}
-      />
+      >
+        <span>{kana[faces[index]]}</span>
+      </Text>
       <Button
         title="Next"
         onPress={next}
