@@ -18,11 +18,19 @@ const Deck = ({ route: { params: { type } } }) => {
   });
 
   const next = () => {
-    setIndex(index + 1);
+    if (index === deck.length - 1) {
+      setIndex(0);
+    } else {
+      setIndex(index + 1);
+    }
   };
 
   if (faces) {
-    return (<Card faces={faces} next={next} kana={deck[index]} />);
+    return (
+      <View style={styles.container}>
+        <Card faces={faces} next={next} kana={deck[index]} />
+      </View>
+    );
   }
 
   return (
