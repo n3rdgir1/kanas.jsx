@@ -12,7 +12,7 @@ const Home = ({ navigation }) => (
     </Text>
     <Text
       style={styles.card}
-      onPress={() => { console.log('hi'); navigation.navigate('Deck', { type: 'Katakana' }); }}
+      onPress={() => navigation.navigate('Deck', { type: 'Katakana' })}
     >
       Katakana
     </Text>

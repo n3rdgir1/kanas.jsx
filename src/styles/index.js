@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH - 20,
     paddingTop: (SCREEN_HEIGHT - bigFont) / 2 + 50,
     fontSize: bigFont,
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
 });
 

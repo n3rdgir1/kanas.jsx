@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import {
-  Text, View, Animated, Dimensions,
+  Text, Animated, Dimensions,
 } from 'react-native';
 import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
 import styles from '../styles';
 
 const Card = ({
-  faces, next, kana,
+  faces, kana,
 }) => {
   const [index, setIndex] = useState(0);
   const {
@@ -22,9 +22,9 @@ const Card = ({
         duration: 500,
         useNativeDriver: true,
       }).start(() => {
-        next();
-        setIndex(0);
-        translateY.setValue(0);
+        // next();
+        // setIndex(0);
+        // translateY.setValue(0);
       });
     }
   };
@@ -40,37 +40,35 @@ const Card = ({
   };
 
   return (
-    <View style={styles.container}>
+    <FlingGestureHandler
+      direction={Directions.UP}
+      onHandlerStateChange={nextCard(-1)}
+    >
       <FlingGestureHandler
-        direction={Directions.UP}
-        onHandlerStateChange={nextCard(-1)}
+        direction={Directions.DOWN}
+        onHandlerStateChange={nextCard(1)}
       >
         <FlingGestureHandler
-          direction={Directions.DOWN}
-          onHandlerStateChange={nextCard(1)}
+          direction={Directions.LEFT}
+          onHandlerStateChange={flipCard(1)}
         >
           <FlingGestureHandler
-            direction={Directions.LEFT}
-            onHandlerStateChange={flipCard(1)}
+            direction={Directions.RIGHT}
+            onHandlerStateChange={flipCard(-1)}
           >
-            <FlingGestureHandler
-              direction={Directions.RIGHT}
-              onHandlerStateChange={flipCard(-1)}
+            <Animated.Text
+              style={[{ ...styles.card, ...styles.big }, {
+                transform: [
+                  { translateY },
+                ],
+              }]}
             >
-              <Animated.Text
-                style={[{ ...styles.card, ...styles.big }, {
-                  transform: [
-                    { translateY },
-                  ],
-                }]}
-              >
-                <Text>{kana[faces[index]]}</Text>
-              </Animated.Text>
-            </FlingGestureHandler>
+              <Text>{kana[faces[index]]}</Text>
+            </Animated.Text>
           </FlingGestureHandler>
         </FlingGestureHandler>
       </FlingGestureHandler>
-    </View>
+    </FlingGestureHandler>
   );
 };
 
