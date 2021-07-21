@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Deck from './src/Deck';
 import Home from './src/Home';
+import 'react-native-gesture-handler';
 
 const Stack = createStackNavigator();
 

@@ -39,13 +39,13 @@ const Deck = ({ route: { params: { type } } }) => {
         style={styles.card}
         onPress={() => setFaces(['romanji', type.toLowerCase()])}
       >
-        <span>Romanji</span>
+        <Text>Romanji</Text>
       </Text>
       <Text
         style={styles.card}
         onPress={() => setFaces([type.toLowerCase(), 'romanji'])}
       >
-        <span>{type}</span>
+        <Text>{type}</Text>
       </Text>
     </View>
   );

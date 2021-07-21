@@ -8,13 +8,13 @@ const Home = ({ navigation }) => (
       style={styles.card}
       onPress={() => navigation.navigate('Deck', { type: 'Hiragana' })}
     >
-      <span>Hiragana</span>
+      Hiragana
     </Text>
     <Text
       style={styles.card}
-      onPress={() => navigation.navigate('Deck', { type: 'Katakana' })}
+      onPress={() => { console.log('hi'); navigation.navigate('Deck', { type: 'Katakana' }); }}
     >
-      <span>Katakana</span>
+      Katakana
     </Text>
   </View>
 );
