@@ -8,9 +8,7 @@ import { Directions, FlingGestureHandler, State } from 'react-native-gesture-han
 import useFlip from '../hooks/useFlip';
 import styles from '../styles';
 
-const Card = ({
-  faces, kana,
-}) => {
+const Card = ({ faces, kana }) => {
   const { height } = Dimensions.get('window');
   const translateY = useRef(new Animated.Value(0)).current;
   const [index, rotateY, flipCard] = useFlip();

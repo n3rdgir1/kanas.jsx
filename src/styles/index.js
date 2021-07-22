@@ -33,6 +33,11 @@ const styles = StyleSheet.create({
     paddingTop: (height - fontSize) / 2,
     textAlign: 'center',
     margin: 10,
+    shadowColor: 'black',
+    elevation: 10,
+  },
+  deck: {
+    paddingTop: (height - fontSize * 2.5) / 2,
   },
   big: {
     height: SCREEN_HEIGHT - 120,
@@ -42,6 +47,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     left: 10,
+    elevation: 5,
   },
 });
 
