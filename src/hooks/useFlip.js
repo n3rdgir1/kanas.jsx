@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 const useFlip = () => {
   const [index, setIndex] = useState(0);
   const rotation = useRef(new Animated.Value(0)).current;
+  const [zIndex, setZIndex] = useState(1);
 
   const rotateY = rotation.interpolate({
     inputRange: [0, 1],
@@ -16,6 +17,7 @@ const useFlip = () => {
 
     if (nativeEvent.oldState === State.ACTIVE) {
       rotation.setValue(frames[0]);
+      setZIndex(10000);
       Animated.timing(rotation, {
         toValue: frames[1],
         duration: 250,
@@ -29,11 +31,12 @@ const useFlip = () => {
           useNativeDriver: true,
         }).start(() => {
           rotation.setValue(0);
+          setZIndex(1);
         });
       });
     }
   };
-  return [index, rotateY, flipCard];
+  return [index, zIndex, rotateY, flipCard];
 };
 
 export default useFlip;

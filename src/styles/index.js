@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
 
 const {
   width: SCREEN_WIDTH,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     width,
     backgroundColor: '#fff',
     borderColor: 'darkgray',
-    borderRadius: 10,
+    borderRadius: Platform.OS === 'ios' ? 0 : 10,
     borderWidth: StyleSheet.hairlineWidth,
     fontSize,
     lineHeight: fontSize,

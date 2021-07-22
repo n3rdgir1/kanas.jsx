@@ -11,7 +11,7 @@ import styles from '../styles';
 const Card = ({ faces, kana }) => {
   const { height } = Dimensions.get('window');
   const translateY = useRef(new Animated.Value(0)).current;
-  const [index, rotateY, flipCard] = useFlip();
+  const [index, zIndex, rotateY, flipCard] = useFlip();
 
   const nextCard = (direction) => ({ nativeEvent }) => {
     if (nativeEvent.oldState === State.ACTIVE) {
@@ -41,7 +41,7 @@ const Card = ({ faces, kana }) => {
             onHandlerStateChange={flipCard(1)}
           >
             <Animated.Text
-              style={[{ ...styles.card, ...styles.big }, {
+              style={[{ ...styles.card, ...styles.big, zIndex }, {
                 transform: [
                   { translateY },
                   { rotateY },

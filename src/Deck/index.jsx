@@ -16,7 +16,7 @@ const Deck = ({ route: { params: { type } } }) => {
   const [faces, setFaces] = useState(options);
   const [deck, setDeck] = useState([]);
   const translateY = useRef(new Animated.Value(0)).current;
-  const [index, rotateY, flipCard] = useFlip();
+  const [index, zIndex, rotateY, flipCard] = useFlip();
 
   useEffect(() => {
     setDeck(shuffle(kanas));
@@ -54,10 +54,10 @@ const Deck = ({ route: { params: { type } } }) => {
             onHandlerStateChange={flipCard(1)}
           >
             <View style={styles.container}>
-              <Text style={{ ...styles.card, ...styles.big }}>&#x1F389;</Text>
+              <Text style={{ ...styles.card, ...styles.big, zIndex }}>&#x1F389;</Text>
               {deck.map((card) => <Card faces={faces} kana={card} key={card.romanji} />)}
               <Animated.Text
-                style={[{ ...styles.card, ...styles.big }, {
+                style={[{ ...styles.card, ...styles.big, zIndex }, {
                   transform: [
                     { translateY },
                     { rotateY },
