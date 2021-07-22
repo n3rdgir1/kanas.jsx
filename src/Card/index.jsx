@@ -1,57 +1,27 @@
 import * as React from 'react';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 import {
   Animated, Dimensions,
 } from 'react-native';
 import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
+import useFlip from '../hooks/useFlip';
 import styles from '../styles';
 
 const Card = ({
   faces, kana,
 }) => {
-  const [index, setIndex] = useState(0);
-  const {
-    height: SCREEN_HEIGHT,
-  } = Dimensions.get('window');
+  const { height } = Dimensions.get('window');
   const translateY = useRef(new Animated.Value(0)).current;
-  const rotation = useRef(new Animated.Value(0)).current;
-
-  const rotateY = rotation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
-  });
+  const [index, rotateY, flipCard] = useFlip();
 
   const nextCard = (direction) => ({ nativeEvent }) => {
     if (nativeEvent.oldState === State.ACTIVE) {
       Animated.timing(translateY, {
-        toValue: SCREEN_HEIGHT * direction,
+        toValue: height * direction,
         duration: 500,
         useNativeDriver: true,
       }).start();
-    }
-  };
-
-  const flipCard = (direction) => ({ nativeEvent }) => {
-    const frames = direction > 0 ? [0, 0.25, 0.75, 1] : [1, 0.75, 0.25, 0];
-
-    if (nativeEvent.oldState === State.ACTIVE) {
-      rotation.setValue(frames[0]);
-      Animated.timing(rotation, {
-        toValue: frames[1],
-        duration: 250,
-        useNativeDriver: true,
-      }).start(() => {
-        setIndex((index + 1) % 2);
-        rotation.setValue(frames[2]);
-        Animated.timing(rotation, {
-          toValue: frames[3],
-          duration: 250,
-          useNativeDriver: true,
-        }).start(() => {
-          rotation.setValue(0);
-        });
-      });
     }
   };
 
