@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState, useRef } from 'react';
+
 import {
-  Text, Animated, Dimensions,
+  Animated, Dimensions,
 } from 'react-native';
 import { Directions, FlingGestureHandler, State } from 'react-native-gesture-handler';
 import styles from '../styles';
@@ -14,6 +15,12 @@ const Card = ({
     height: SCREEN_HEIGHT,
   } = Dimensions.get('window');
   const translateY = useRef(new Animated.Value(0)).current;
+  const rotation = useRef(new Animated.Value(0)).current;
+
+  const rotateY = rotation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  });
 
   const nextCard = (direction) => ({ nativeEvent }) => {
     if (nativeEvent.oldState === State.ACTIVE) {
@@ -21,21 +28,30 @@ const Card = ({
         toValue: SCREEN_HEIGHT * direction,
         duration: 500,
         useNativeDriver: true,
-      }).start(() => {
-        // next();
-        // setIndex(0);
-        // translateY.setValue(0);
-      });
+      }).start();
     }
   };
 
   const flipCard = (direction) => ({ nativeEvent }) => {
+    const frames = direction > 0 ? [0, 0.25, 0.75, 1] : [1, 0.75, 0.25, 0];
+
     if (nativeEvent.oldState === State.ACTIVE) {
-      // Animated.spring(this.translateY, {
-      //   toValue: Animated.add(this.translateY, 10),
-      //   useNativeDriver: USE_NATIVE_DRIVER,
-      // }).start();
-      setIndex((index + 1) % 2);
+      rotation.setValue(frames[0]);
+      Animated.timing(rotation, {
+        toValue: frames[1],
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setIndex((index + 1) % 2);
+        rotation.setValue(frames[2]);
+        Animated.timing(rotation, {
+          toValue: frames[3],
+          duration: 500,
+          useNativeDriver: true,
+        }).start(() => {
+          rotation.setValue(0);
+        });
+      });
     }
   };
 
@@ -50,20 +66,21 @@ const Card = ({
       >
         <FlingGestureHandler
           direction={Directions.LEFT}
-          onHandlerStateChange={flipCard(1)}
+          onHandlerStateChange={flipCard(-1)}
         >
           <FlingGestureHandler
             direction={Directions.RIGHT}
-            onHandlerStateChange={flipCard(-1)}
+            onHandlerStateChange={flipCard(1)}
           >
             <Animated.Text
               style={[{ ...styles.card, ...styles.big }, {
                 transform: [
                   { translateY },
+                  { rotateY },
                 ],
               }]}
             >
-              <Text>{kana[faces[index]]}</Text>
+              <Animated.Text>{kana[faces[index]]}</Animated.Text>
             </Animated.Text>
           </FlingGestureHandler>
         </FlingGestureHandler>
