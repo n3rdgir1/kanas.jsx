@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   big: {
-    height: SCREEN_HEIGHT - 100,
-    width: SCREEN_WIDTH - 20,
+    height: SCREEN_HEIGHT - 120,
+    width: SCREEN_WIDTH - 40,
     paddingTop: (SCREEN_HEIGHT - bigFont) / 2 + 50,
     fontSize: bigFont,
     position: 'absolute',
-    top: 0,
-    left: 0,
+    top: 10,
+    left: 10,
   },
 });
 

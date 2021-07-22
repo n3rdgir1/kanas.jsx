@@ -39,14 +39,14 @@ const Card = ({
       rotation.setValue(frames[0]);
       Animated.timing(rotation, {
         toValue: frames[1],
-        duration: 500,
+        duration: 250,
         useNativeDriver: true,
       }).start(() => {
         setIndex((index + 1) % 2);
         rotation.setValue(frames[2]);
         Animated.timing(rotation, {
           toValue: frames[3],
-          duration: 500,
+          duration: 250,
           useNativeDriver: true,
         }).start(() => {
           rotation.setValue(0);
