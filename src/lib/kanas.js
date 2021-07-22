@@ -87,7 +87,7 @@ export const shuffle = (array) => {
       array[randomIndex], array[currentIndex]];
   }
 
-  return array;
+  return [...array, { romanji: 'start', hiragana: '始める', katakana: '始める' }];
 };
 
 export default kanas;

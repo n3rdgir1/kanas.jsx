@@ -12,15 +12,19 @@ import styles from '../styles';
 
 const Deck = ({ route: { params: { type } } }) => {
   const { height } = Dimensions.get('window');
-  const [faces, setFaces] = useState();
+  const options = ['romanji', type.toLowerCase()];
+  const [faces, setFaces] = useState(options);
   const [deck, setDeck] = useState([]);
   const translateY = useRef(new Animated.Value(0)).current;
   const [index, rotateY, flipCard] = useFlip();
-  const options = ['romanji', type.toLowerCase()];
 
   useEffect(() => {
     setDeck(shuffle(kanas));
   }, []);
+
+  useEffect(() => {
+    setFaces([options[index], options[(index + 1) % 2]]);
+  }, [index]);
 
   const nextCard = (direction) => ({ nativeEvent }) => {
     if (nativeEvent.oldState === State.ACTIVE) {
@@ -28,20 +32,9 @@ const Deck = ({ route: { params: { type } } }) => {
         toValue: height * direction,
         duration: 500,
         useNativeDriver: true,
-      }).start(() => {
-        setFaces([options[index], options[(index + 1) % 2]]);
-      });
+      }).start();
     }
   };
-
-  if (faces) {
-    return (
-      <View style={styles.container}>
-        <Text style={{ ...styles.card, ...styles.big }}>&#x1F389;</Text>
-        {deck.map((card) => <Card faces={faces} kana={card} key={card.romanji} />)}
-      </View>
-    );
-  }
 
   return (
     <FlingGestureHandler
@@ -60,20 +53,24 @@ const Deck = ({ route: { params: { type } } }) => {
             direction={Directions.RIGHT}
             onHandlerStateChange={flipCard(1)}
           >
-            <Animated.Text
-              style={[{ ...styles.card, ...styles.big }, {
-                transform: [
-                  { translateY },
-                  { rotateY },
-                ],
-              }]}
-            >
-              <Animated.Text>
-                [
-                {kanas[0][options[index]]}
-                ]
+            <View style={styles.container}>
+              <Text style={{ ...styles.card, ...styles.big }}>&#x1F389;</Text>
+              {deck.map((card) => <Card faces={faces} kana={card} key={card.romanji} />)}
+              <Animated.Text
+                style={[{ ...styles.card, ...styles.big }, {
+                  transform: [
+                    { translateY },
+                    { rotateY },
+                  ],
+                }]}
+              >
+                <Animated.Text>
+                  [
+                  {kanas[0][options[index]]}
+                  ]
+                </Animated.Text>
               </Animated.Text>
-            </Animated.Text>
+            </View>
           </FlingGestureHandler>
         </FlingGestureHandler>
       </FlingGestureHandler>

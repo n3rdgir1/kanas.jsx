@@ -7,7 +7,7 @@ const {
 
 const height = Math.max(SCREEN_HEIGHT / 2.5, SCREEN_WIDTH / 2.5);
 const width = Math.max(SCREEN_HEIGHT / 3.5, SCREEN_WIDTH / 3.5);
-const fontSize = SCREEN_HEIGHT / 20;
+const fontSize = SCREEN_HEIGHT / 25;
 const bigFont = fontSize * 4;
 
 const styles = StyleSheet.create({
@@ -33,16 +33,18 @@ const styles = StyleSheet.create({
     paddingTop: (height - fontSize) / 2,
     textAlign: 'center',
     margin: 10,
-    shadowColor: 'black',
+    shadowColor: 'darkgray',
     elevation: 10,
   },
   deck: {
     paddingTop: (height - fontSize * 2.5) / 2,
+    borderRightWidth: 5,
+    borderBottomWidth: 5,
   },
   big: {
     height: SCREEN_HEIGHT - 120,
     width: SCREEN_WIDTH - 40,
-    paddingTop: (SCREEN_HEIGHT - bigFont) / 2 + 50,
+    paddingTop: (SCREEN_HEIGHT - bigFont) / 2 + 30,
     fontSize: bigFont,
     position: 'absolute',
     top: 10,
